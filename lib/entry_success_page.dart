@@ -11,10 +11,20 @@ class EntrySuccessPage extends StatefulWidget {
 
 class _EntrySuccessPageState extends State<EntrySuccessPage> {
   bool isSuccess = true;
+  String? loadingPath = 'assets/loading.json';
+  bool isLoading = true;
 
   @override
   void initState() {
     isSuccess = Get.arguments;
+
+    Future.delayed(const Duration(seconds: 6), () {
+      loadingPath =
+          isSuccess ? 'assets/nfc_success.json' : 'assets/failed_con.json';
+      isLoading = false;
+      setState(() {});
+    });
+
     super.initState();
   }
 
@@ -44,19 +54,21 @@ class _EntrySuccessPageState extends State<EntrySuccessPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Lottie.asset(
-              isSuccess ? 'assets/nfc_success.json' : 'assets/failed_con.json',
+              loadingPath!,
             ),
             const SizedBox(
               height: 20,
             ),
-            Text(
-              isSuccess ? 'ENTRY ACCESS SUCCESS!' : 'ENTRY ACCESS DENIED',
-              style: Get.textTheme.titleLarge!.copyWith(
-                fontSize: 22,
-                fontWeight: FontWeight.w700,
-                color: isSuccess ? Colors.greenAccent : Colors.redAccent,
-              ),
-            ),
+            isLoading
+                ? const SizedBox()
+                : Text(
+                    isSuccess ? 'ENTRY ACCESS SUCCESS!' : 'ENTRY ACCESS DENIED',
+                    style: Get.textTheme.titleLarge!.copyWith(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w700,
+                      color: isSuccess ? Colors.greenAccent : Colors.redAccent,
+                    ),
+                  ),
             const SizedBox(
               height: 100,
             )
