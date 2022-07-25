@@ -53,6 +53,12 @@ class _EntrySuccessPageState extends State<EntrySuccessPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text(
+              'GATE ACCESS!\n\n',
+              style: Get.textTheme.headlineLarge!.copyWith(
+                fontWeight: FontWeight.w800,
+              ),
+            ),
             Lottie.asset(
               loadingPath!,
             ),
